@@ -1,4 +1,4 @@
-import '../assets/css/HomeScreen.css'
+import '../assets/css/global.css'
 
 export default function HomeScreen() {
   return(
@@ -14,15 +14,28 @@ export default function HomeScreen() {
               <form action="" method="post">
                 <div className="form">
                   <div className="form-login">
-                    <label for="nome">Nome</label>
-                    <input type="text" className="form-control" id="nome" />
+                    <label for="nome">Insira seu e-mail</label>
+                    <input 
+                      type="text"
+                      placeholder='abc@email.com' 
+                      className="form-control" 
+                      id="nome" 
+                    />
                   </div>
                   <div className="form-login">
                     <label for="senha">Senha</label>
-                    <input type="password" className="form-control" id="senha" />
+                    <input 
+                      type="password" 
+                      className="form-control" 
+                      id="senha" 
+                    />
                   </div>
                   <div className="form-login">
-                    <input type="submit" className="btn-success" value="Entrar" />
+                    <input 
+                      type="submit" 
+                      className="btn-success" 
+                      value="Entrar" 
+                    />
                   </div>
                   <div className="cadusuario">
                     <a href="/cadastro">Cadastre-se</a>

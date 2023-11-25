@@ -7,7 +7,11 @@ export default function ProfessoresScreen() {
             <h1>Cadastro de Professores</h1>
             <div className="form-group">
               <label for="nome">Nome completo</label>
-              <input type="text" className="form-control" id="nome" />
+              <input 
+                type="text" 
+                className="form-control" 
+                id="nome" 
+              />
             </div>
             <div className="form-group">
               <label for="nome">Nome da disciplina</label>
@@ -19,10 +23,17 @@ export default function ProfessoresScreen() {
             </div>
             <div className="form-group">
               <label for="nome">Telefone</label>
-              <input type="text" className="form-control" id="telefone" />
+              <input 
+                type="text" 
+                className="form-control" 
+                id="telefone" 
+              />
             </div>
             <div className="form-group">
-              <input type="submit" className="btn-success" />
+              <input 
+                type="submit" 
+                className="btn-success" 
+              />
             </div>
           </div>
         </div>
