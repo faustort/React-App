@@ -1,5 +1,5 @@
 import React from "react";
-import styles from '../assets/css/global.css';
+import styles from '../assets/css/home.css';
 import { useAlunos } from "../routes/context";
 
 const AlunoCard = ({ aluno }) => {

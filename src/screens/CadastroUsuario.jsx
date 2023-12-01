@@ -1,3 +1,5 @@
+import style from '../assets/css/home.css'
+
 export default function CadastroUsuario(){
     return(
         <>

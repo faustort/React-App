@@ -31,7 +31,7 @@ export default function LoginScreen(){
           </div>
           <div className="col-2">
             <div className="col-3">
-              <form action="" method="post">
+              <form action='' method="post">
                 <div className="form">
                   <div className="form-login">
                     <label for="nome">Insira seu e-mail</label>

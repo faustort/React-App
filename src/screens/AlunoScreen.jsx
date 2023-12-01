@@ -1,16 +1,13 @@
 import { useState } from "react"
-import styles from '../assets/css/global.css'
-import { useAlunos } from '../routes/context'
-import ListaAlunos from "./ListaAlunos"
+import styles from "../assets/css/home.css"
+import { useAlunos } from "../assets/db/context"
 
 export default function AlunoScreen() {
-    const { alunos, adicionarAluno } = useAlunos()
+    const { adicionarAluno, atualizarAluno, excluirAluno } = useAlunos()
     const [formData, setFormData] = useState({
-        nome: "",
-        idade: "",
-        email: "",
-        date: "",
-        telefone: "",
+        nome: '',
+        idade: '',
+        telefone: '',
     })
 
     const [cadastrado, setCadastrado] = useState(false)
@@ -24,18 +21,25 @@ export default function AlunoScreen() {
         }))
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
-        adicionarAluno(formData)
-        setCadastrado(true)
+        if (editMode) {
+            await atualizarAluno(formData);
+            setCadastrado(true);
+            setEditMode(false);
+          } else {
+            adicionarAluno(formData);
+            setCadastrado(true);
+          }
     }
 
     const handleEdit = () => {
-        setEditMode(true)
-    }
+        setEditMode(true);
+      };
 
-    const handleUpdate = () => {
+    const handleUpdate = async () => {
+        await atualizarAluno(formData)
         setCadastrado(true)
         setEditMode(false)
     }
@@ -43,29 +47,25 @@ export default function AlunoScreen() {
     const handleCancel = () => {
         setEditMode(false)
         setFormData({
-            nome: "",
-            idade: "",
-            email: "",
-            date: "",
-            telefone: "",
+            nome: '',
+            idade: '',
+            telefone: '',
         })
     }
 
-    const handleDelete = () => {
+    const handleDelete = async () => {
+        await excluirAluno(formData.id)
         setCadastrado(false)
         setEditMode(false)
         setFormData({
-            nome: "",
-            idade: "",
-            email: "",
-            date: "",
-            telefone: "",
+            nome: '',
+            idade: '',
+            telefone: '',
         })
     }
 
     return (
         <div>
-            <ListaAlunos alunos={alunos} />
             {cadastrado ? (
                 <div className={`${styles.card} ${styles.cadastrado}`}>
                     <h2 style={{ color: "white" }}>
@@ -90,27 +90,6 @@ export default function AlunoScreen() {
                                     className="form-control"
                                     id="idade"
                                     value={formData.idade}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className={styles.group}>
-                                <label htmlFor="email">E-mail </label>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    id="email"
-                                    placeholder="abc@email.com"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className={styles.group}>
-                                <label htmlFor="date">Data de Nascimento </label>
-                                <input
-                                    type="date"
-                                    className="form-control"
-                                    id="date"
-                                    value={formData.email}
                                     onChange={handleChange}
                                 />
                             </div>
@@ -141,8 +120,6 @@ export default function AlunoScreen() {
                         <>
                             <p>Nome: {formData.nome}</p>
                             <p>Idade: {formData.idade}</p>
-                            <p>E-mail: {formData.email}</p>
-                            <p>Data de Nascimento: {formData.date}</p>
                             <p>Telefone: {formData.telefone}</p>
                             <div className={styles.group}>
                                 <button type="button" className={styles["btn-success"]} onClick={handleEdit}>
@@ -180,26 +157,6 @@ export default function AlunoScreen() {
                             />
                         </div>
                         <div className={styles.group}>
-                            <label htmlFor="email">E-mail </label>
-                            <input
-                                type="email"
-                                className="form-control"
-                                id="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.group}>
-                            <label htmlFor="date">Data de Nascimento </label>
-                            <input
-                                type="date"
-                                className="form-control"
-                                id="date"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className={styles.group}>
                             <label htmlFor="telefone">Telefone </label>
                             <input
                                 type="text"
@@ -210,7 +167,9 @@ export default function AlunoScreen() {
                             />
                         </div>
                         <div className={styles.group}>
-                            <input type="submit" className={styles["btn-success"]} />
+                            <button type="submit" className={styles["btn-success"]}>
+                                {editMode ? "Atualizar" : "Cadastrar"}
+                            </button>
                         </div>
                     </form>
                 </div>
